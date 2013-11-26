@@ -12,28 +12,47 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
         self.app = app
         self.btnLoad.clicked.connect(self.onBtnLoad)
-        self.hopfield = HopfieldNetwork(320 * 200 * 3)
+        self.btnTeach.clicked.connect(self.onBtnTeach)
+        self.btnClear.clicked.connect(self.onBtnClear)
+        self.picSize = 25
+        self.hopfield = HopfieldNetwork(1954 * 8)
         self.saved_images = dict()
     def onBtnLoad(self):
         text, ok = QtGui.QFileDialog.getOpenFileNameAndFilter(self, 'Открыть файл bmp', './images', '*.bmp')
         if ok:
             self.openedImagePath = text
             pixmap = QtGui.QPixmap(self.openedImagePath)
-            pixmap = pixmap.scaledToHeight(200)
+            pixmap = pixmap.scaledToHeight(self.picSize)
             self.lblLoadedImage.setPixmap(pixmap)
-            self.lblLoadedImage.setGeometry(50, 50, 320, 320)
+            self.lblLoadedImage.setGeometry(50, 50, self.picSize, self.picSize)
     def onBtnTeach(self):
-        with open(self.openedImagePath) as f:
+        print("TEACHING")
+        with open(self.openedImagePath, 'rb') as f:
             data = f.read()
         path = self.openedImagePath
         key = self._make_key(data)
-        self.saved_images[key] = path
+        self.saved_images[str(key)] = path
         self.hopfield.learn_vector(key)
-        print(key)
+        print("TEAUGHT")
+    def onBtnClear(self):
+        print("CLEARING")
+        with open(self.openedImagePath, 'rb') as f:
+            data = f.read()
+        key = self._make_key(data)
+        key = self.hopfield.filter_vector(key)
+        if str(key) not in self.saved_images:
+            print("NOT FOUND")
+            return
+        fpath = self.saved_images[str(key)]
+        pixmap = QtGui.QPixmap(fpath)
+        pixmap = pixmap.scaledToHeight(self.picSize)
+        self.lblClearedImage.setPixmap(pixmap)
+        self.lblClearedImage.setGeometry(110, 50, self.picSize, self.picSize)
+        print("CLEARED")
     def _make_key(self, data):
         res = []
         for b in data:
-            res.append([i for i in self._get_bits(b)])
+            res = res + [i for i in self._get_bits(b)]
         return res
     def _get_bits(self, b):
         yield 1 if (b & 1) > 0 else -1

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'mainwindow.ui'
 #
-# Created: Tue Nov 26 22:09:24 2013
+# Created: Tue Nov 26 23:41:56 2013
 #      by: PyQt4 UI code generator 4.9.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -17,7 +17,7 @@ except AttributeError:
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName(_fromUtf8("MainWindow"))
-        MainWindow.resize(1173, 590)
+        MainWindow.resize(351, 256)
         self.centralwidget = QtGui.QWidget(MainWindow)
         self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
         self.lblLoadedImage = QtGui.QLabel(self.centralwidget)
@@ -25,21 +25,21 @@ class Ui_MainWindow(object):
         self.lblLoadedImage.setText(_fromUtf8(""))
         self.lblLoadedImage.setObjectName(_fromUtf8("lblLoadedImage"))
         self.lblClearedImage = QtGui.QLabel(self.centralwidget)
-        self.lblClearedImage.setGeometry(QtCore.QRect(850, 40, 58, 17))
+        self.lblClearedImage.setGeometry(QtCore.QRect(210, 30, 58, 17))
         self.lblClearedImage.setText(_fromUtf8(""))
         self.lblClearedImage.setObjectName(_fromUtf8("lblClearedImage"))
         self.btnLoad = QtGui.QPushButton(self.centralwidget)
-        self.btnLoad.setGeometry(QtCore.QRect(10, 510, 87, 27))
+        self.btnLoad.setGeometry(QtCore.QRect(10, 180, 87, 27))
         self.btnLoad.setObjectName(_fromUtf8("btnLoad"))
         self.btnTeach = QtGui.QPushButton(self.centralwidget)
-        self.btnTeach.setGeometry(QtCore.QRect(580, 510, 87, 27))
+        self.btnTeach.setGeometry(QtCore.QRect(110, 180, 87, 27))
         self.btnTeach.setObjectName(_fromUtf8("btnTeach"))
         self.btnClear = QtGui.QPushButton(self.centralwidget)
-        self.btnClear.setGeometry(QtCore.QRect(1050, 510, 111, 27))
+        self.btnClear.setGeometry(QtCore.QRect(220, 180, 111, 27))
         self.btnClear.setObjectName(_fromUtf8("btnClear"))
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1173, 27))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 351, 27))
         self.menubar.setObjectName(_fromUtf8("menubar"))
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtGui.QStatusBar(MainWindow)
