@@ -17,38 +17,49 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.picSize = 25
         self.hopfield = HopfieldNetwork(1954 * 8)
         self.saved_images = dict()
+    def showMessageBox(self, message):
+        msgBox = QtGui.QMessageBox()
+        msgBox.setWindowTitle('Сообщение от нейросети')
+        msgBox.setText(message)
+        msgBox.exec()
     def onBtnLoad(self):
         text, ok = QtGui.QFileDialog.getOpenFileNameAndFilter(self, 'Открыть файл bmp', './images', '*.bmp')
         if ok:
+            self.lblClearedImage.pixmap = None
             self.openedImagePath = text
             pixmap = QtGui.QPixmap(self.openedImagePath)
             pixmap = pixmap.scaledToHeight(self.picSize)
             self.lblLoadedImage.setPixmap(pixmap)
             self.lblLoadedImage.setGeometry(50, 50, self.picSize, self.picSize)
     def onBtnTeach(self):
-        print("TEACHING")
+        self.lblClearedImage.pixmap = None
+        self.lblStatus.setText('Идет обучение')
         with open(self.openedImagePath, 'rb') as f:
             data = f.read()
         path = self.openedImagePath
         key = self._make_key(data)
         self.saved_images[str(key)] = path
         self.hopfield.learn_vector(key)
-        print("TEAUGHT")
+        self.lblStatus.setText('')
+        self.showMessageBox('Обучение успешно завершено')
     def onBtnClear(self):
-        print("CLEARING")
+        self.lblClearedImage.pixmap = None
+        self.lblStatus.setText('Идет распознавание')
         with open(self.openedImagePath, 'rb') as f:
             data = f.read()
         key = self._make_key(data)
         key = self.hopfield.filter_vector(key)
         if str(key) not in self.saved_images:
-            print("NOT FOUND")
+            self.showMessageBox('Изображение не распознано')
+            self.lblStatus.setText('')
             return
         fpath = self.saved_images[str(key)]
         pixmap = QtGui.QPixmap(fpath)
         pixmap = pixmap.scaledToHeight(self.picSize)
         self.lblClearedImage.setPixmap(pixmap)
         self.lblClearedImage.setGeometry(110, 50, self.picSize, self.picSize)
-        print("CLEARED")
+        self.lblStatus.setText('')
+        self.showMessageBox('Очистка изображения успешно завершена')
     def _make_key(self, data):
         res = []
         for b in data:

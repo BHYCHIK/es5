@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'mainwindow.ui'
 #
-# Created: Tue Nov 26 23:41:56 2013
+# Created: Wed Nov 27 01:55:40 2013
 #      by: PyQt4 UI code generator 4.9.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -37,6 +37,10 @@ class Ui_MainWindow(object):
         self.btnClear = QtGui.QPushButton(self.centralwidget)
         self.btnClear.setGeometry(QtCore.QRect(220, 180, 111, 27))
         self.btnClear.setObjectName(_fromUtf8("btnClear"))
+        self.lblStatus = QtGui.QLabel(self.centralwidget)
+        self.lblStatus.setGeometry(QtCore.QRect(140, 150, 58, 17))
+        self.lblStatus.setText(_fromUtf8(""))
+        self.lblStatus.setObjectName(_fromUtf8("lblStatus"))
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 351, 27))
