@@ -27,7 +27,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def onBtnLoad(self):
         text, ok = QtGui.QFileDialog.getOpenFileNameAndFilter(self, 'Открыть файл bmp', './images', '*.bmp')
         if ok:
-            self.lblClearedImage.setPixmap(None)
+            self.lblClearedImage.setPixmap(QtGui.QPixmap())
             self.openedImagePath = text
             pixmap = QtGui.QPixmap(self.openedImagePath)
             pixmap = pixmap.scaledToHeight(self.picSize)
@@ -35,7 +35,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
             self.lblLoadedImage.setGeometry(50, 50, self.picSize, self.picSize)
     def onBtnTeach(self):
         self.statusbar.showMessage('Идет обучение')
-        self.lblClearedImage.setPixmap(None)
+        self.lblClearedImage.setPixmap(QtGui.QPixmap())
         QtGui.QApplication.processEvents()
         with open(self.openedImagePath, 'rb') as f:
             data = f.read()
@@ -46,7 +46,7 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.statusbar.showMessage('')
         self.showMessageBox('Обучение успешно завершено')
     def onBtnClear(self):
-        self.lblClearedImage.setPixmap(None)
+        self.lblClearedImage.setPixmap(QtGui.QPixmap())
         self.statusbar.showMessage('Идет фильтрация')
         QtGui.QApplication.processEvents()
         return

@@ -6,7 +6,8 @@ class HopfieldVectorIncorrectFormatError(Exception):pass
 class HopfieldNetwork(object):
     def __init__(self, neurons_count):
         self._neurons_count = neurons_count
-        self._weights = [[0 for j in range(0, self._neurons_count)] for i in range(0, self._neurons_count)]
+        self._diap = tuple(range(0, self._neurons_count))
+        self._weights = [[0 for j in self._diap] for i in self._diap]
 
     def _check_input_vector(self, vector):
         if len(vector) != self._neurons_count:
@@ -20,8 +21,8 @@ class HopfieldNetwork(object):
 
     def learn_vector(self, vector_to_learn):
         self._check_input_vector(vector_to_learn)
-        for i in range(0, self._neurons_count):
-            for j in range(0, self._neurons_count):
+        for i in self._diap:
+            for j in self._diap:
                 self._weights[i][j] = self._weights[i][j] + (vector_to_learn[i] * vector_to_learn[j] if i != j else 0)
 
     def filter_vector(self, vector_to_filter):
@@ -31,9 +32,9 @@ class HopfieldNetwork(object):
         y[0] = 12 # Make bad vector
         while new_y != y:
             y = new_y[:]
-            for i in range(0, self._neurons_count):
+            for i in sepf._diap:
                 new_y[i] = 0
-                for j in range(0, self._neurons_count):
+                for j in self._diap:
                     new_y[i] = new_y[i] + self._weights[i][j] * y[j]
                 new_y[i] = self._activation_function(new_y[i])
         return y
